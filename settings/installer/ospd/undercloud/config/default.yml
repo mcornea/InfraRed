@@ -1,2 +1,12 @@
 ---
-local_interface: "eth0"
+local_ip: 192.168.0.1/25
+undercloud_public_vip:  192.168.0.2
+undercloud_admin_vip: 192.168.0.3
+local_interface: eth1
+masquerade_network: 192.168.0.0/25
+dhcp_start: 192.168.0.10
+dhcp_end: 192.168.0.30
+network_cidr: 192.168.0.0/25
+network_gateway: 192.168.0.126
+discovery_iprange: 192.168.0.30,192.168.0.50
+undercloud_debug: false

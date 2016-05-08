@@ -13,14 +13,18 @@ disks:
     disk2:
         <<: *disk1
         dev: /dev/vdb
-        size: "40G"
+        size: "30G"
+    disk3:
+        <<: *disk1
+        dev: /dev/vdc
+        size: "30G"
 network:
     interfaces:
-        management:
+        provision:
             label: "eth0"
-        data:
+        storage:
             label: "eth1"
-        external:
+        management:
             label: "eth2"
     floating_ip_network: management
 

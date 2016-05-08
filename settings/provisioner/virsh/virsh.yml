@@ -8,8 +8,8 @@ provisioner:
         groups:
             - virthost
     image:
-        memory: "16384"
-        cpu: "4"
+        memory: "10240"
+        cpu: "2"
         os:
             variant: rhel7
         disk:
@@ -18,11 +18,7 @@ provisioner:
     packages:
         - libvirt
         - qemu-kvm
-        - virt-manager
         - virt-install
-        - xorg-x11-apps
-        - xauth
-        - virt-viewer
         - wget
 
 job:

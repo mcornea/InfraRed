@@ -12,12 +12,16 @@ disks:
         size: "40G"
 network:
     interfaces:
-        management:
+        provision:
             label: "eth0"
-        data:
-            label: "eth1"
         external:
+            label: "eth1"
+        internal:
             label: "eth2"
+        storage:
+            label: "eth3"
+        management:
+            label: "eth4"
     floating_ip_network: management
 
 groups:

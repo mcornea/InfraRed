@@ -1,10 +1,18 @@
 #!/bin/bash
 
 {% for node_name, node_values in provisioner.topology.nodes.iteritems() %}
-{% for num in range(1, node_values.amount + 1, 1) %}
+{% for num in range(0, node_values.amount, 1) %}
 {% for disk_name, disk_values in node_values.disks.iteritems() %}
-qemu-img create -f qcow2 {{ disk_values.path }}/{{ node_name }}{% if node_values.amount > 1 %}{{ num }}{% endif %}.{{ disk_name }}.qcow2 {{ disk_values.size }}
+{% if node_name != 'undercloud' %}
+qemu-img create -f qcow2 -o preallocation=metadata {{ disk_values.path }}/{{ node_name }}-{{ num }}.{{ disk_name }}.qcow2 {{ disk_values.size }}
+{% else %}
+qemu-img create -f qcow2 -o preallocation=metadata {{ disk_values.path }}/{{ node_name }}.{{ disk_name }}.qcow2 {{ disk_values.size }}
+{% endif %}
 {% endfor %}
-virt-resize --expand /dev/sda1 /var/lib/libvirt/images/base_image.qcow2 {{ node_values.disks.disk1.path }}/{{ node_name }}{% if node_values.amount > 1 %}{{ num }}{% endif %}.disk1.qcow2
+{% if node_name != 'undercloud' %}
+virt-resize --expand /dev/sda1 /var/lib/libvirt/images/base_image.qcow2 {{ node_values.disks.disk1.path }}/{{ node_name }}-{{ num }}.disk1.qcow2
+{% else %}
+virt-resize --expand /dev/sda1 /var/lib/libvirt/images/base_image.qcow2 {{ node_values.disks.disk1.path }}/{{ node_name }}.disk1.qcow2
+{% endif %}
 {% endfor %}
 {% endfor %}

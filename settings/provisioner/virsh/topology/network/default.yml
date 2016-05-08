@@ -1,32 +1,32 @@
 ---
-data:
-    ip_address: "192.0.2.254"
-    netmask: "255.255.255.0"
-management:
-    ip_address: "172.16.0.1"
-    netmask: "255.255.255.0"
+provision:
+    ip_address: "192.168.0.126"
+    netmask: "255.255.255.128"
     forward:
         type: "nat"
-    dhcp:
-        range:
-            start: "172.16.0.2"
-            end: "172.16.0.100"
-        subnet_cidr: "172.16.0.0/24"
-        subnet_gateway: "172.16.0.1"
-    floating_ip:
-        start: "172.16.0.101"
-        end: "172.16.0.150"
+internal:
+storage:
 external:
-    ip_address: "10.0.0.1"
-    netmask: "255.255.255.0"
+    ip_address: "172.16.17.126"
+    netmask: "255.255.255.128"
     forward:
         type: "nat"
+    ipv6_address: "2001:db8:ca2:2::1"
+    ipv6_prefix: 64
+management:
+    forward:
+        type: "nat"
+    ip_address: "172.16.17.254"
+    netmask: "255.255.255.128"
     dhcp:
         range:
-            start: "10.0.0.2"
-            end: "10.0.0.100"
-        subnet_cidr: "10.0.0.0/24"
-        subnet_gateway: "10.0.0.1"
-    floating_ip:
-        start: "10.0.0.101"
-        end: "10.0.0.150"
+            start: "172.16.17.130"
+            end: "172.16.17.150"
+        subnet_cidr: "172.16.17.128/25"
+        subnet_gateway: "172.16.17.254"
+    ipv6_address: "2001:db8:ca2:3::1"
+    ipv6_prefix: 64
+    dhcpv6:
+        range:
+            start: "2001:db8:ca2:3:1::10"
+            end: "2001:db8:ca2:3:1::ff"
