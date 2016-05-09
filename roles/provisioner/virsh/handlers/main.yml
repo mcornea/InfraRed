@@ -1,0 +1,3 @@
+---
+- name: apply masquerading rules for external tagged network
+  shell: 'iptables -A POSTROUTING -s 172.16.18.0/25 ! -d 172.16.18.0/25 -j MASQUERADE -t nat'

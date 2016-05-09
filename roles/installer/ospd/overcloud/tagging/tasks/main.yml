@@ -4,9 +4,6 @@
   ignore_errors: true
   register: result
 
-- debug: msg="{{ hostvars[item].ansible_devices }}"
-  with_items: "{{ groups['overcloud_nodes'] }}"
-
 - name: create the flavors for our machines
   shell: "source ~/stackrc; openstack flavor create --id auto --ram {{ hostvars[item].ansible_memtotal_mb }} --disk {{ hostvars[item].ansible_devices.vda.size | regex_replace('^([0-9]+).*$', '\\1') | int - 5 }} --vcpus {{ hostvars[item].ansible_processor_vcpus | int - 1 }} {{ item.rstrip('1234567890-') }}"
   register: flavor_result

@@ -4,6 +4,10 @@
 - name: assign the kernel and ramdisk before introspection begins
   shell: "source ~/stackrc; openstack baremetal configure boot"
 
+- name: assign the first disk as root disk
+  shell: "source ~/stackrc; ironic node-update {{ item }} add properties/root_device='{\"size\": {{ hostvars[item].ansible_devices.vda.size | regex_replace('^([0-9]+).*$', '\\1') }} }'"
+  with_items: "{{ groups['overcloud_nodes'] }}"
+
 - name: start node introspection
   shell: "source ~/stackrc; openstack baremetal introspection bulk start"
   register: introspection_result

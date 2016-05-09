@@ -22,3 +22,7 @@
       name: "{{ item }}"
       autostart: "yes"
   with_items: "{{ provisioner.topology.network.keys() }}"
+
+- name: create ifcfg script for tagged external network
+  copy: src=ifcfg-external.100 dest=/etc/sysconfig/network-scripts/ifcfg-external.100
+  notify: apply masquerading rules for external tagged network
