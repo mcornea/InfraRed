@@ -7,12 +7,6 @@ provision:
 internal:
 storage:
 external:
-    ip_address: "172.16.17.126"
-    netmask: "255.255.255.128"
-    forward:
-        type: "nat"
-    ipv6_address: "2001:db8:ca2:2::1"
-    ipv6_prefix: 64
 management:
     forward:
         type: "nat"
@@ -26,7 +20,3 @@ management:
         subnet_gateway: "172.16.17.254"
     ipv6_address: "2001:db8:ca2:3::1"
     ipv6_prefix: 64
-    dhcpv6:
-        range:
-            start: "2001:db8:ca2:3:1::10"
-            end: "2001:db8:ca2:3:1::ff"

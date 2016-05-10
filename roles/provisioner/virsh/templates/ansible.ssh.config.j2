@@ -13,7 +13,7 @@ Host {{ host }}
 {% endif %}
 
 {% endfor %}
-Host {{ '%s' % '.'.join(provisioner.topology.network.external.ip_address.split('.')[:-2]) }}.*
+Host {{ '%s' % '.'.join(provisioner.topology.network.management.ip_address.split('.')[:-2]) }}.*
     ProxyCommand ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -W %h:%p -i {{ provisioner.host.key }} {{ provisioner.host.user }}@{{ provisioner.host.address }}
     ControlMaster   auto
     ControlPath     {{ inventory_dir }}/%%r@%%h:%%p
