@@ -3,10 +3,14 @@ provision:
     ip_address: "192.168.0.126"
     netmask: "255.255.255.128"
     forward:
-        type: "nat"
+        type: "route"
 internal:
 storage:
 external:
+    ip_address: "172.16.17.126"
+    netmask: "255.255.255.128"
+    forward:
+        type: "nat"
 management:
     forward:
         type: "nat"
