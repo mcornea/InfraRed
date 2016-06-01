@@ -34,12 +34,6 @@
   retries: 40
   delay: 5
 
-- name: update system packages
-  yum:
-      state: latest
-      name: "*"
-  register: update
-
 - name: install the oscplugin/tripleO client
   yum:
       name: "{% if installer.product.version == '7' %}python-rdomanager-oscplugin{% else %}python-tripleoclient{% endif %}"

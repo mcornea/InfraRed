@@ -44,11 +44,15 @@
         retries: 40
         delay: 5
 
-      - name: update system packages
+      - name: update virt packages
         yum:
             state: latest
-            name: "*"
-        register: update
+            name: "{{ item }}"
+        with_items:
+          - ipxe-bootimgs
+          - ipxe-roms-qemu
+          - libvirt
+          - qemu-kvm-rhev
 
 - name: Prepare the instackenv.json
   hosts: undercloud
