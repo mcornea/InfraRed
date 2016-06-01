@@ -4,9 +4,9 @@
 {% for num in range(0, node_values.amount, 1) %}
 {% for disk_name, disk_values in node_values.disks.iteritems() %}
 {% if node_name != 'undercloud' %}
-qemu-img create -f qcow2 -o preallocation=metadata {{ disk_values.path }}/{{ node_name }}-{{ num }}.{{ disk_name }}.qcow2 {{ disk_values.size }}
+qemu-img create -f qcow2 -o preallocation=falloc {{ disk_values.path }}/{{ node_name }}-{{ num }}.{{ disk_name }}.qcow2 {{ disk_values.size }}
 {% else %}
-qemu-img create -f qcow2 -o preallocation=metadata {{ disk_values.path }}/{{ node_name }}.{{ disk_name }}.qcow2 {{ disk_values.size }}
+qemu-img create -f qcow2 -o preallocation=falloc {{ disk_values.path }}/{{ node_name }}.{{ disk_name }}.qcow2 {{ disk_values.size }}
 {% endif %}
 {% endfor %}
 {% if node_name != 'undercloud' %}
