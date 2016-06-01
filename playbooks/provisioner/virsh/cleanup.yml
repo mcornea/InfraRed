@@ -69,6 +69,7 @@
 
       - name: remove external.100 network
         shell: "ifdown external.100; rm -f /etc/sysconfig/network-scripts/ifcfg-external.100; iptables -D POSTROUTING -s 172.16.18.0/25 ! -d 172.16.18.0/25 -j MASQUERADE -t nat"
+        ignore_errors: true
 
 - name: Remove hypervisor from the known_hosts
   hosts: localhost
