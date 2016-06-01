@@ -1,4 +1,7 @@
 # In case of virthost we need to fix the pxe_ssh limitation of correctly assigning the MAC address to the iPXE script
+- hosts: all
+  tasks: [ ]
+
 - name: Update our libvirt machine to latest puddle packages
   hosts: virthost
   tags: backup
@@ -45,25 +48,6 @@
             state: latest
             name: "*"
         register: update
-
-      - name: reboot our virthost
-        shell: "sleep 2 && shutdown -r now"
-        async: 1
-        poll: 0
-        ignore_errors: true
-        when: update|changed
-
-      - name: waiting for the virthost to be available
-        wait_for:
-            port: 22
-            host: "{{ ansible_ssh_host }}"
-            search_regex: OpenSSH
-            delay: 10
-        delegate_to: "localhost"
-        when: update|changed
-
-- include: quickstart-undercloud.yml
-  when: "'undercloud' not in groups"
 
 - name: Prepare the instackenv.json
   hosts: undercloud

@@ -40,22 +40,6 @@
       name: "*"
   register: update
 
-- name: reboot the undercloud
-  shell: "sleep 2 && shutdown -r now"
-  async: 1
-  poll: 0
-  ignore_errors: true
-  when: update|changed
-
-- name: waiting for the undercloud to be available
-  wait_for:
-      port: 22
-      host: "{{ ansible_ssh_host }}"
-      search_regex: OpenSSH
-      delay: 10
-  delegate_to: "{% if 'virthost' in groups %}virthost{% else %}localhost{% endif %}"
-  when: update|changed
-
 - name: install the oscplugin/tripleO client
   yum:
       name: "{% if installer.product.version == '7' %}python-rdomanager-oscplugin{% else %}python-tripleoclient{% endif %}"
