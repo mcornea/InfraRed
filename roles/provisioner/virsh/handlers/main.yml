@@ -1,3 +1,7 @@
 ---
-- name: apply masquerading rules for external tagged network
-  shell: 'ifup external.100; iptables -A POSTROUTING -s 172.16.18.0/25 ! -d 172.16.18.0/25 -j MASQUERADE -t nat'
+- name: set up manual networking
+  shell:  "{{ item }}"
+  with_items:
+    - 'ifup external.100; iptables -A POSTROUTING -s 172.16.18.0/25 ! -d 172.16.18.0/25 -j MASQUERADE -t nat'
+    - 'ifup external.101; iptables -A POSTROUTING -s 172.16.18.128/25 ! -d 172.16.18.128/25 -j MASQUERADE -t nat'
+    - 'ifup internal.201; iptables -A POSTROUTING -s 172.16.19.0/25 ! -d 172.16.19.0/25 -j MASQUERADE -t nat'

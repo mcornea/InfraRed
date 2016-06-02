@@ -71,6 +71,14 @@
         shell: "ifdown external.100; rm -f /etc/sysconfig/network-scripts/ifcfg-external.100; iptables -D POSTROUTING -s 172.16.18.0/25 ! -d 172.16.18.0/25 -j MASQUERADE -t nat"
         ignore_errors: true
 
+      - name: remove external.101 network
+        shell: "ifdown external.101; rm -f /etc/sysconfig/network-scripts/ifcfg-external.101; iptables -D POSTROUTING -s 172.16.18.128/25 ! -d 172.16.18.128/25 -j MASQUERADE -t nat"
+        ignore_errors: true
+
+      - name: remove internal.201 network
+        shell: "ifdown internal.201; rm -f /etc/sysconfig/network-scripts/ifcfg-internal.201; iptables -D POSTROUTING -s 172.16.19.0/25 ! -d 172.16.19.0/25 -j MASQUERADE -t nat"
+        ignore_errors: true
+
 - name: Remove hypervisor from the known_hosts
   hosts: localhost
   gather_facts: no
