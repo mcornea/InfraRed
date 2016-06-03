@@ -109,3 +109,28 @@
             mode: o-rwx,g-rwx,u+rw
         become: yes
         become_user: "{{ installer.user.name }}"
+
+      - name: insert the public key to the known hosts in virthost
+        lineinfile:
+          dest: "/root/.ssh/authorized_keys"
+          line: "{{ undercloud_public_key.stdout }}"
+
+- name: Get the undercloud stack user private key
+  hosts: undercloud
+  gather_facts: no
+  become: yes
+  become_user: "{{ installer.user.name }}"
+  tasks:
+      - name: fetch the private key file from the undercloud
+        fetch:
+            src: "/home/{{ installer.user.name }}/.ssh/id_rsa"
+            dest: "{{ lookup('env', 'PWD') }}/id_rsa_overcloud"
+            flat: yes
+
+      - block:
+          - name: update file permissions
+            become: no
+            file:
+                path: "{{ lookup('env', 'PWD') }}/id_rsa_overcloud"
+                mode: 0600
+            delegate_to: localhost
