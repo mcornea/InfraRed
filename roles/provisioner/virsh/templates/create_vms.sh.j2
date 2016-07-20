@@ -25,7 +25,7 @@ virt-install --name {{ node_name }}-{{ num }} \
 {% else %}
 virt-install --name {{ node_name }} \
 {% for disk_name, disk_values in node_values.disks.iteritems() %}
-             --disk path={{ disk_values.path }}/{{ node_name }}.{{ disk_name }}.qcow2,device=disk,bus=virtio,format=qcow2,cache=default \
+             --disk path={{ disk_values.path }}/{{ node_name }}.{{ disk_name }}.qcow2,device=disk,bus=virtio,format=qcow2,cache=unsafe \
 {% endfor %}
             --network network:management \
             --network network:provision \
