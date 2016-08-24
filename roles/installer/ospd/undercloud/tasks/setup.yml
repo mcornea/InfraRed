@@ -34,6 +34,26 @@
   retries: 40
   delay: 5
 
+- name: update kernel
+  yum:
+      state: latest
+      name: "kernel"
+  register: update
+
+- name: reboot the undercloud
+  shell: "sleep 2 && shutdown -r now"
+  async: 1
+  poll: 0
+  ignore_errors: true
+  when: update.changed
+
+- name: waiting for undercloud to come back
+  delegate_to: localhost
+  wait_for:
+    host: "{{ hostvars[inventory_hostname].ansible_ssh_host }}"
+    timeout: 60
+    delay: 5
+
 - name: install the oscplugin/tripleO client
   yum:
       name: "{% if installer.product.version == '7' %}python-rdomanager-oscplugin{% else %}python-tripleoclient{% endif %}"
