@@ -54,12 +54,6 @@
     timeout: 60
     delay: 5
 
-- name: install tripleo-common to w/a BZ#1385470
-  yum:
-      name: "http://trunk.rdoproject.org/centos7-newton/current/openstack-tripleo-common-5.2.1-0.20161015221239.3163e51.el7.centos.noarch.rpm"
-      state: present
-  when: installer.product.version == 10
-
 - name: install the oscplugin/tripleO client
   yum:
       name: "{% if installer.product.version == '7' %}python-rdomanager-oscplugin{% else %}python-tripleoclient{% endif %}"
